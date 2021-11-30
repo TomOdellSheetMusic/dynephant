@@ -87,5 +87,4 @@ like this:
 $host = "foobar"
 $token = "randomtextforfoobarhere"
 $daemon = 600
-dynephant -host=foobar -token=randomtextforfoobarhere -6 -daemon=600
-```bat
+
