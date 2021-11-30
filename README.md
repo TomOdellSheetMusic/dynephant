@@ -66,17 +66,14 @@ Once you have an account with dynv6.com, find your host name and
 authentication token.
 
 The command line arguments are:
-* -host=\<hostname\>               host name to update on DDNS service
-* -token=\<authentication_token\>  authentication token for host name to be updated
-* -4                             update DNS A record with IPv4 address
-* -6                             update DNS AAAA record with IPv6 address
-* -daemon=\<seconds\>              number of seconds to wait between updates
+currently irrelevant since there is now to execute the script using command line
 
--host and -token are required. Either or both -4 or -6 are required.
-Not setting -daemon results in only one update (or attempt) occurring.
-Setting -daemon to less than 300 seconds (5 minutes) results in the default
+You have to edit $host and $token on line 92 in the autoIT script.
+Not setting $daemon results in only one update (or attempt) occurring.
+Setting $daemon to less than 300 seconds (5 minutes) results in the default
 of 1800 seconds (30 minutes) being used.
 -host takes only the host name (leave off the dynv6.net part), not the FQDN.
+
 
 The following example assumes your Fully Qualified Domain Name (FQDN)
 for your host name is foobar.dynv6.net, and your authentication token
@@ -84,26 +81,10 @@ is randomtextforfoobarhere:
 
 If you want Dynephant to automatically periodically set the AAAA
 (IPv6 Address) record, but not the A (IPv4 Address) record for your host
-every 10 minutes (600 seconds), you would run Dynephant with the
-following command:
+every 10 minutes (600 seconds), you would run the autoIT script with lines 92-95 
+like this:
 
-```bat
+$host = "foobar"
+$token = "randomtextforfoobarhere"
+$daemon = 600
 dynephant -host=foobar -token=randomtextforfoobarhere -6 -daemon=600
-```
-
-The update_foobar.dynv6.net.bat file contains the following example
-of using the CLI version with logging.
-```bat
-C:\dynephant\dynephant-cli -6 -daemon=600 -host=foobar -token=randomtextforfoobarhere 1>C:\dynephant\dynephant-foobar.log 2>&1
-```
-Only use a CLI version if you need monitoring or logging, as it stays
-running in a Command Prompt window. It is possible to run the cli
-version in a hidden window using a third-party utility to launch it.
-Here's a one-line example using Sysinternal's psexec utility to run
-the batch file update_foobar.dynv6.net.bat as the Windows System
-user to effectively hide the Command Prompt window:
-```bat
-psexec /accepteula -s -d c:\dynephant\update_foobar.dynv6.net.bat
-```
-Example Windows Shortcuts for launching the GUI version with command
-line parameters are included in the installation directory.
