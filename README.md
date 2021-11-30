@@ -1,4 +1,7 @@
 #Dynephant
+I didn't manage to compile the autoit file, so you have to download autoit to edit and run the script. I will make a new release if I manage to figure that out.
+Chriv said dynephant was brolen right now, but i noticed that it still updated my ip address but would bother me every 30 seconds about how it didn't work. All I did was replace the error message and set the timer that used to be for the error message to the daemon timer for waiting between checks.
+
 
 Dynephant is a simple, open-source Dynamic DNS (DDNS) client for
 Windows. It is intended to have as few dependencies as possible. It
