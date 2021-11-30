@@ -66,7 +66,7 @@
 #AutoIt3Wrapper_Run_After=build_all.bat
 
 $sTitle = "Dynephant"
-$sVersion = "0.9.1.14"
+$sVersion = "0.9.1.4"
 $sCopyright = "Copyright © 2016 Chuck Renner"
 $sMisc = "Icon courtesy of http://www.how-to-draw-funny-cartoons.com"
 ConsoleWriteError($sTitle & " Version " & $sVersion & @LF)
