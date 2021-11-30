@@ -83,8 +83,9 @@ If you want Dynephant to automatically periodically set the AAAA
 (IPv6 Address) record, but not the A (IPv4 Address) record for your host
 every 10 minutes (600 seconds), you would run the autoIT script with lines 92-95 
 like this:
-
+```bat
 $host = "foobar"
 $token = "randomtextforfoobarhere"
 $daemon = 600
 dynephant -host=foobar -token=randomtextforfoobarhere -6 -daemon=600
+```bat
