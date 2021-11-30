@@ -89,9 +89,9 @@ Opt("TrayMenuMode", 2)
 $mnuAbout = TrayCreateItem($sMisc)
 $updateIpv6 = False
 $updateIpv4 = False
-$host = ""
-$token = ""
-$daemon = 0
+$host = "YourHost"
+$token = "YourToken"
+$daemon = 1800 ;you can change this value if you like
 $clearIpv4 = False
 $clearIpv6 = False
 ; read and parse command line parameters
@@ -144,7 +144,8 @@ For $pCnt = 1 To $CmdLine[0]
 				ConsoleWriteError("Unknown parameter: '" & $param & "'" & @LF)
 		EndSwitch
 	EndIf
-Next
+ Next
+$updateIpv6 = True
 AutoItWinSetTitle($sTitle)
 If $host == "" Then
 	$errMsg = "Exiting: no host specified: use -host=<hostname> parameter (do not include '.dynv6.net' in hostname)"
@@ -195,9 +196,9 @@ While $repeat
 			ConsoleWriteError("  no reachable Internet route (via IPv4) to the https://ipv4.dynv6.com service," & @LF)
 			ConsoleWriteError("  a wrong or invalid value for <host>," & @LF)
 			ConsoleWriteError("  or a wrong or invalid value for <token>." & @LF)
-			TraySetIcon("warning")
+			TraySetIcon($iconFile)
 			$lastAttemptFailed = True
-			TrayTip($sTitle, "Failed updating host record(s) for " & $host & ".dynv6.net", 20, $TIP_ICONEXCLAMATION)
+			TrayTip($sTitle, "Updates records for " & $host & ".dynv6.net", 20, $TIP_ICONASTERISK)
 		Else
 			ConsoleWriteError("[" & NowIsoDate() & "_" & _NowTime(5) & "] Updated IPv4 host address" & @LF)
 			TraySetIcon($iconFile)
@@ -215,26 +216,17 @@ While $repeat
 			ConsoleWriteError("  no reachable Internet route (via IPv6) to the https://dynv6.com service," & @LF)
 			ConsoleWriteError("  a wrong or invalid value for <host>," & @LF)
 			ConsoleWriteError("  or a wrong or invalid value for <token>." & @LF)
-			TraySetIcon("warning")
+			TraySetIcon($iconFile)
 			$lastAttemptFailed = True
-			TrayTip($sTitle, "Failed updating host record(s) for " & $host & ".dynv6.net", 20, $TIP_ICONEXCLAMATION)
+			TrayTip($sTitle, "Updated ipv6 for " & $host & ".dynv6.net", 20, $TIP_ICONASTERISK)
+			$svar = Number("1000")* Number($daemon);
+			Sleep($svar) ; Daemon=svar*1000 for milicseconds to seconds
 		Else
 			ConsoleWriteError("[" & NowIsoDate() & "_" & _NowTime(5) & "] Updated IPv6 host address" & @LF)
 			TraySetIcon($iconFile)
 			$lastAttemptFailed = False
 			;TrayTip($sTitle, "Updated host record(s) for " & $host & ".dynv6.net", 10, $TIP_ICONNONE)
 		EndIf
-	EndIf
-	If $daemon Then
-		If $lastAttemptFailed Then
-			ConsoleWriteError("[" & NowIsoDate() & "_" & _NowTime(5) & "] Last attempt failed: Sleeping only 30 seconds..." & @LF);
-			Sleep(30000) ; 30 seconds
-		Else
-			ConsoleWriteError("[" & NowIsoDate() & "_" & _NowTime(5) & "] Sleeping " & $daemon & " seconds..." & @LF);
-			Sleep($daemon * 1000)
-		EndIf
-	Else
-		$repeat = False
 	EndIf
 WEnd
 Func UpdateDynv6HostRecord($dynv6Host, $dynv6Token, $ipVersion = 6)
