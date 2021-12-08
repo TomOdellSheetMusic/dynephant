@@ -1,6 +1,5 @@
 #Dynephant 
 
-I didn't manage to compile the autoit file, so you have to download [autoit](https://www.autoitscript.com/cgi-bin/getfile.pl?autoit3/autoit-v3-setup.exe) to edit and run the script. I will make a new release if I manage to figure that out.
 Chriv said dynephant was broken right now, but i noticed that it still updated my ip address but would bother me every 30 seconds about how it didn't work. All I did was replace the error message and set the timer that used to be for the error message to the daemon timer for waiting between checks.
 
 
@@ -26,10 +25,9 @@ already part of Windows). The dependency on IE for HTTPS creates
 some intrinsic limitations on reporting of errors (namely, that
 errors are known, but the cause is not automatically).
 
-CLI and GUI, 32-bit and 64-bit versions are provided. Use the CLI
-version if you want to monitor or redirect the stderr stream into
-a log file. Use the GUI version if you want the program to run
-without leaving a Command Prompt open.
+Only one exe is currently available and you have to run it via a the batfile, which
+you will have to configure with the -host, -token and -daemon arguements. Just open it with 
+notepad or a similar text editing program and paste in your own information. 
 
 ##Table of Contents
 
@@ -53,6 +51,7 @@ without leaving a Command Prompt open.
 * Optional: Windows 10 SDK's signtool (https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk)
 * Optional: Working internet connection (needed to have signed timestamp on .exe files)
 * Optional: NSIS's makensis (http://nsis.sourceforge.net/Download) (needed to build setup)
+
 
 ##License
 
