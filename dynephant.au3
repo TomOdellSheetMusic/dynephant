@@ -1,8 +1,8 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_Icon=Martin-Berube-Square-Animal-Elephant.ico
-#AutoIt3Wrapper_Compression=4
-#AutoIt3Wrapper_UseUpx=y
+#AutoIt3Wrapper_Outfile=dynephant.Exe
 #AutoIt3Wrapper_Res_Language=1033
+#AutoIt3Wrapper_Run_After=build_all.bat
 #AutoIt3Wrapper_Run_Tidy=y
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
 ; All version numbers will be overwritten by build_all.bat every time it is called!
@@ -63,10 +63,9 @@
 ;    "_build_all.bat" file
 ;    Building using the F7 key from SciTE will initially build just one version
 ;    (which will be overwritten), then call the batch file to build all versions.
-#AutoIt3Wrapper_Run_After=build_all.bat
 
 $sTitle = "Dynephant"
-$sVersion = "0.9.1.4"
+$sVersion = "0.9.1.14"
 $sCopyright = "Copyright © 2016 Chuck Renner"
 $sMisc = "Icon courtesy of http://www.how-to-draw-funny-cartoons.com"
 ConsoleWriteError($sTitle & " Version " & $sVersion & @LF)
@@ -89,9 +88,9 @@ Opt("TrayMenuMode", 2)
 $mnuAbout = TrayCreateItem($sMisc)
 $updateIpv6 = False
 $updateIpv4 = False
-$host = "YourHost"
-$token = "YourToken"
-$daemon = 1800 ;you can change this value if you like
+$host = ""
+$token = ""
+$daemon = ""
 $clearIpv4 = False
 $clearIpv6 = False
 ; read and parse command line parameters
@@ -144,8 +143,7 @@ For $pCnt = 1 To $CmdLine[0]
 				ConsoleWriteError("Unknown parameter: '" & $param & "'" & @LF)
 		EndSwitch
 	EndIf
- Next
-$updateIpv6 = True
+Next
 AutoItWinSetTitle($sTitle)
 If $host == "" Then
 	$errMsg = "Exiting: no host specified: use -host=<hostname> parameter (do not include '.dynv6.net' in hostname)"
@@ -219,7 +217,7 @@ While $repeat
 			TraySetIcon($iconFile)
 			$lastAttemptFailed = True
 			TrayTip($sTitle, "Updated ipv6 for " & $host & ".dynv6.net", 20, $TIP_ICONASTERISK)
-			$svar = Number("1000")* Number($daemon);
+			$svar = Number("1000") * Number($daemon) ;
 			Sleep($svar) ; Daemon=svar*1000 for milicseconds to seconds
 		Else
 			ConsoleWriteError("[" & NowIsoDate() & "_" & _NowTime(5) & "] Updated IPv6 host address" & @LF)
