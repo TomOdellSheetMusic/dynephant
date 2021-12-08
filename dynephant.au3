@@ -204,6 +204,7 @@ While $repeat
 			;TrayTip("$sTitle, "Updated host record(s) for " & $host & ".dynv6.net", 10, $TIP_ICONNONE)
 		EndIf
 	EndIf
+	
 	If $updateIpv6 Then
 		$resultUpdateIpv6 = UpdateDynv6HostRecord($host, $token)
 		;ConsoleWriteError("Finished IPv6 update attempt" & @LF)
